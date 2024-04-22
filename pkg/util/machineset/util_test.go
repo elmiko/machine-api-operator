@@ -144,14 +144,15 @@ func TestParsingAnnotations(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
+			g := NewWithT(t)
 			observed, err := ParseMachineSetAnnotationKey(tc.annotations, tc.key)
 
 			if tc.expectError == true {
-				Expect(err).To(HaveOccurred())
+				g.Expect(err).To(HaveOccurred())
 			} else {
-				Expect(err).ToNot(HaveOccurred())
+				g.Expect(err).ToNot(HaveOccurred())
 			}
-			Expect(observed).To(Equal(tc.expectedReturn))
+			g.Expect(observed).To(Equal(tc.expectedReturn))
 		})
 	}
 }
@@ -190,9 +191,10 @@ func TestHasScaleFromZero(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
+			g := NewWithT(t)
 			observed := HasScaleFromZeroAnnotationsEnabled(tc.suppliedAnnotations)
 
-			Expect(observed).To(Equal(tc.expectedReturn))
+			g.Expect(observed).To(Equal(tc.expectedReturn))
 		})
 	}
 }
